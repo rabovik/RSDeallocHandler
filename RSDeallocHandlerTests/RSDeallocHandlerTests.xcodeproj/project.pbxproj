@@ -11,22 +11,24 @@
 		1A15FB9617980D0C00A78928 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A15FB9517980D0C00A78928 /* UIKit.framework */; };
 		1A15FB9817980D0C00A78928 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A15FB9717980D0C00A78928 /* Foundation.framework */; };
 		1A15FB9E17980D0C00A78928 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A15FB9C17980D0C00A78928 /* InfoPlist.strings */; };
-		1A15FBA117980D0C00A78928 /* RSDeallocHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBA017980D0C00A78928 /* RSDeallocHandlerTests.m */; };
 		1A15FBAC17980D7900A78928 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A15FB9317980D0C00A78928 /* SenTestingKit.framework */; };
 		1A15FBAE17980D7900A78928 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A15FBAD17980D7900A78928 /* Cocoa.framework */; };
 		1A15FBB817980D7A00A78928 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A15FBB617980D7A00A78928 /* InfoPlist.strings */; };
-		1A15FBC017980DFE00A78928 /* RSDeallocHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBA017980D0C00A78928 /* RSDeallocHandlerTests.m */; };
+		1A15FBC91798124F00A78928 /* RSDeallocHandlerCommonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBC61798124F00A78928 /* RSDeallocHandlerCommonTests.m */; };
+		1A15FBCA1798124F00A78928 /* RSDeallocHandlerCommonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBC61798124F00A78928 /* RSDeallocHandlerCommonTests.m */; };
+		1A15FBD0179813DE00A78928 /* NSObject+RSDeallocHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBCD179812E600A78928 /* NSObject+RSDeallocHandler.m */; };
+		1A15FBD1179813DF00A78928 /* NSObject+RSDeallocHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBCD179812E600A78928 /* NSObject+RSDeallocHandler.m */; };
+		1A15FBD2179813E700A78928 /* RSDeallocHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBC41798124F00A78928 /* RSDeallocHandlerTests.m */; };
+		1A15FBD3179813E800A78928 /* RSDeallocHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBC41798124F00A78928 /* RSDeallocHandlerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A15FB9017980D0C00A78928 /* RSDeallocHandlerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSDeallocHandlerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A15FB9017980D0C00A78928 /* TestsIOS.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsIOS.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A15FB9317980D0C00A78928 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		1A15FB9517980D0C00A78928 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		1A15FB9717980D0C00A78928 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		1A15FB9B17980D0C00A78928 /* RSDeallocHandlerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSDeallocHandlerTests-Info.plist"; sourceTree = "<group>"; };
 		1A15FB9D17980D0C00A78928 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1A15FB9F17980D0C00A78928 /* RSDeallocHandlerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSDeallocHandlerTests.h; sourceTree = "<group>"; };
-		1A15FBA017980D0C00A78928 /* RSDeallocHandlerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSDeallocHandlerTests.m; sourceTree = "<group>"; };
 		1A15FBA217980D0C00A78928 /* RSDeallocHandlerTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSDeallocHandlerTests-Prefix.pch"; sourceTree = "<group>"; };
 		1A15FBAB17980D7900A78928 /* TestsOSX.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsOSX.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A15FBAD17980D7900A78928 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -36,6 +38,13 @@
 		1A15FBB517980D7A00A78928 /* RSDeallocHandlerTestsOSX-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSDeallocHandlerTestsOSX-Info.plist"; sourceTree = "<group>"; };
 		1A15FBB717980D7A00A78928 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1A15FBBC17980D7A00A78928 /* RSDeallocHandlerTestsOSX-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSDeallocHandlerTestsOSX-Prefix.pch"; sourceTree = "<group>"; };
+		1A15FBC21798124F00A78928 /* NSObject+RSDeallocHandler_Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+RSDeallocHandler_Tests.h"; path = "Tests/NSObject+RSDeallocHandler_Tests.h"; sourceTree = SOURCE_ROOT; };
+		1A15FBC31798124F00A78928 /* RSDeallocHandlerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSDeallocHandlerTests.h; path = Tests/RSDeallocHandlerTests.h; sourceTree = SOURCE_ROOT; };
+		1A15FBC41798124F00A78928 /* RSDeallocHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSDeallocHandlerTests.m; path = Tests/RSDeallocHandlerTests.m; sourceTree = SOURCE_ROOT; };
+		1A15FBC51798124F00A78928 /* RSDeallocHandlerCommonTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSDeallocHandlerCommonTests.h; path = Tests/RSDeallocHandlerCommonTests.h; sourceTree = SOURCE_ROOT; };
+		1A15FBC61798124F00A78928 /* RSDeallocHandlerCommonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSDeallocHandlerCommonTests.m; path = Tests/RSDeallocHandlerCommonTests.m; sourceTree = SOURCE_ROOT; };
+		1A15FBCC179812E600A78928 /* NSObject+RSDeallocHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+RSDeallocHandler.h"; path = "../RSDeallocHandler/NSObject+RSDeallocHandler.h"; sourceTree = "<group>"; };
+		1A15FBCD179812E600A78928 /* NSObject+RSDeallocHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+RSDeallocHandler.m"; path = "../RSDeallocHandler/NSObject+RSDeallocHandler.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +73,7 @@
 		1A15FB8417980CF900A78928 = {
 			isa = PBXGroup;
 			children = (
+				1A15FBCB179812D100A78928 /* RSDeallocHandler */,
 				1A15FB9917980D0C00A78928 /* Tests */,
 				1A15FBC117980EBD00A78928 /* Supporting Files */,
 				1A15FB9217980D0C00A78928 /* Frameworks */,
@@ -74,7 +84,7 @@
 		1A15FB9117980D0C00A78928 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A15FB9017980D0C00A78928 /* RSDeallocHandlerTests.octest */,
+				1A15FB9017980D0C00A78928 /* TestsIOS.octest */,
 				1A15FBAB17980D7900A78928 /* TestsOSX.octest */,
 			);
 			name = Products;
@@ -95,8 +105,11 @@
 		1A15FB9917980D0C00A78928 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				1A15FB9F17980D0C00A78928 /* RSDeallocHandlerTests.h */,
-				1A15FBA017980D0C00A78928 /* RSDeallocHandlerTests.m */,
+				1A15FBC21798124F00A78928 /* NSObject+RSDeallocHandler_Tests.h */,
+				1A15FBC31798124F00A78928 /* RSDeallocHandlerTests.h */,
+				1A15FBC41798124F00A78928 /* RSDeallocHandlerTests.m */,
+				1A15FBC51798124F00A78928 /* RSDeallocHandlerCommonTests.h */,
+				1A15FBC61798124F00A78928 /* RSDeallocHandlerCommonTests.m */,
 			);
 			name = Tests;
 			path = RSDeallocHandlerTests;
@@ -143,6 +156,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1A15FBCB179812D100A78928 /* RSDeallocHandler */ = {
+			isa = PBXGroup;
+			children = (
+				1A15FBCC179812E600A78928 /* NSObject+RSDeallocHandler.h */,
+				1A15FBCD179812E600A78928 /* NSObject+RSDeallocHandler.m */,
+			);
+			name = RSDeallocHandler;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -161,7 +183,7 @@
 			);
 			name = TestsIOS;
 			productName = RSDeallocHandlerTests;
-			productReference = 1A15FB9017980D0C00A78928 /* RSDeallocHandlerTests.octest */;
+			productReference = 1A15FB9017980D0C00A78928 /* TestsIOS.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		1A15FBAA17980D7900A78928 /* TestsOSX */ = {
@@ -261,7 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A15FBA117980D0C00A78928 /* RSDeallocHandlerTests.m in Sources */,
+				1A15FBC91798124F00A78928 /* RSDeallocHandlerCommonTests.m in Sources */,
+				1A15FBD0179813DE00A78928 /* NSObject+RSDeallocHandler.m in Sources */,
+				1A15FBD3179813E800A78928 /* RSDeallocHandlerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +293,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A15FBC017980DFE00A78928 /* RSDeallocHandlerTests.m in Sources */,
+				1A15FBCA1798124F00A78928 /* RSDeallocHandlerCommonTests.m in Sources */,
+				1A15FBD1179813DF00A78928 /* NSObject+RSDeallocHandler.m in Sources */,
+				1A15FBD2179813E700A78928 /* RSDeallocHandlerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,12 +324,14 @@
 		1A15FB8917980CF900A78928 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = "RS_DEALLOC_HANDLER_TESTS_TARGET=1";
 			};
 			name = Debug;
 		};
 		1A15FB8A17980CF900A78928 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = "RS_DEALLOC_HANDLER_TESTS_TARGET=1";
 			};
 			name = Release;
 		};
@@ -330,8 +358,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSDeallocHandlerTests/RSDeallocHandlerTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"DEBUG=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -366,6 +394,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSDeallocHandlerTests/RSDeallocHandlerTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -439,6 +468,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSDeallocHandlerTestsOSX/RSDeallocHandlerTestsOSX-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
