@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-#if DEBUG
+#if RS_DEALLOC_HANDLER_TESTS_TARGET
 @interface NSObject (RSDeallocHandler_Tests)
 
 -(NSUInteger)rs_deallocHandlersCount;
