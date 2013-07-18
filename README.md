@@ -19,7 +19,7 @@ Handlers may be removed using the ID received on adding.
     _handlerID = [someObject rs_addDeallocHandler:^{} owner:nil];
 }
 -(void)dealloc{
-    [someObject rs_removeDeallocHandler:handlerID];
+    [someObject rs_removeDeallocHandler:_handlerID];
 }
 
 ```
