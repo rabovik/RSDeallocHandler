@@ -1,14 +1,22 @@
-#import "RSDeallocHandlerTests.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import "RSTestsLog.h"
 #import "NSObject+RSDeallocHandler.h"
 #import "NSObject+RSDeallocHandler_Tests.h"
 
+@interface RSDeallocHandlerTests : SenTestCase @end
+
 @implementation RSDeallocHandlerTests
+
+-(void)setUp{
+    [super setUp];
+    [RSTestsLog clear];
+}
 
 -(void)testSingleDeallocHandler{
     @autoreleasepool {
         id obj = [NSObject new];
         [obj rs_addDeallocHandler:^{
-            MyLog(@"A");
+            RSTestsLog(@"A");
         } owner:nil];
         obj = nil;
     }
@@ -19,10 +27,10 @@
     @autoreleasepool {
         id obj = [NSObject new];
         [obj rs_addDeallocHandler:^{
-            MyLog(@"A");
+            RSTestsLog(@"A");
         } owner:nil];
         [obj rs_addDeallocHandler:^{
-            MyLog(@"B");
+            RSTestsLog(@"B");
         } owner:nil];
         obj = nil;
     }
@@ -33,10 +41,10 @@
     @autoreleasepool {
         id obj = [NSObject new];
         NSString *uidA = [obj rs_addDeallocHandler:^{
-            MyLog(@"A");
+            RSTestsLog(@"A");
         } owner:nil];
         [obj rs_addDeallocHandler:^{
-            MyLog(@"B");
+            RSTestsLog(@"B");
         } owner:nil];
         [obj rs_removeDeallocHandler:uidA];
         obj = nil;
@@ -50,7 +58,7 @@
         @autoreleasepool {
             id owner = [NSObject new];
             [target rs_addDeallocHandler:^{
-                MyLog(@"A");
+                RSTestsLog(@"A");
             } owner:owner];
             STAssertTrue(1 == [target rs_deallocHandlersCount], @"");
             owner = nil;
@@ -66,7 +74,7 @@
     @autoreleasepool {
         id target = [NSObject new];
         [target rs_addDeallocHandler:^{
-            MyLog(@"A");
+            RSTestsLog(@"A");
         } owner:owner];
         STAssertTrue(1 == [owner rs_deallocHandlersCount], @"");
         target = nil;
@@ -81,7 +89,7 @@
         id target = [NSObject new];
         @autoreleasepool {
             NSString *uid = [target rs_addDeallocHandler:^{
-                MyLog(@"A");
+                RSTestsLog(@"A");
             } owner:owner];
             [target rs_removeDeallocHandler:uid];
         }

@@ -1,6 +1,7 @@
-#import "RSDeallocHandlerCommonTests.h"
+#import "RSTestsLog.h"
+#import <SenTestingKit/SenTestingKit.h>
 
-@implementation MyLog
+@implementation RSTestsLog
 
 static NSMutableString *_logString = nil;
 +(void)log:(NSString *)string{
@@ -22,23 +23,23 @@ static NSMutableString *_logString = nil;
 
 @end
 
-@implementation RSDeallocHandlerCommonTests
 
-- (void)setUp{
-    [super setUp];
-    [MyLog clear];
-}
+@interface RSTestsLogTests : SenTestCase @end
+
+@implementation RSTestsLogTests
 
 - (void)testLog{
-    MyLog(@"A");
-    MyLog(@"B");
-    MyLog(@"C");
-    STAssertTrue([[MyLog logString] isEqualToString:@"ABC"], @"%@",[MyLog logString]);
+    [RSTestsLog clear];
+    RSTestsLog(@"A");
+    RSTestsLog(@"B");
+    RSTestsLog(@"C");
+    STAssertTrue([[RSTestsLog logString] isEqualToString:@"ABC"], @"%@",[RSTestsLog logString]);
 }
 
 -(void)testAssertLogIs{
-    MyLog(@"A");
-    MyLog(@"C");
+    [RSTestsLog clear];
+    RSTestsLog(@"A");
+    RSTestsLog(@"C");
     ASSERT_LOG_IS(@"AC");
 }
 
