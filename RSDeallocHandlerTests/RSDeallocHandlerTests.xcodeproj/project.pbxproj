@@ -18,6 +18,8 @@
 		1A15FBD1179813DF00A78928 /* NSObject+RSDeallocHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBCD179812E600A78928 /* NSObject+RSDeallocHandler.m */; };
 		1A15FBD2179813E700A78928 /* RSDeallocHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBC41798124F00A78928 /* RSDeallocHandlerTests.m */; };
 		1A15FBD3179813E800A78928 /* RSDeallocHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A15FBC41798124F00A78928 /* RSDeallocHandlerTests.m */; };
+		1ACF0F3017DB39A90061AC98 /* RSSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACF0F2F17DB39A90061AC98 /* RSSwizzle.m */; };
+		1ACF0F3117DB39A90061AC98 /* RSSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACF0F2F17DB39A90061AC98 /* RSSwizzle.m */; };
 		1AF93CF917D39EB000245015 /* RSTestsLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF93CF717D39EB000245015 /* RSTestsLog.m */; };
 		1AF93CFA17D39EB000245015 /* RSTestsLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF93CF717D39EB000245015 /* RSTestsLog.m */; };
 /* End PBXBuildFile section */
@@ -42,6 +44,8 @@
 		1A15FBC41798124F00A78928 /* RSDeallocHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSDeallocHandlerTests.m; path = Tests/RSDeallocHandlerTests.m; sourceTree = SOURCE_ROOT; };
 		1A15FBCC179812E600A78928 /* NSObject+RSDeallocHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+RSDeallocHandler.h"; path = "../RSDeallocHandler/NSObject+RSDeallocHandler.h"; sourceTree = "<group>"; };
 		1A15FBCD179812E600A78928 /* NSObject+RSDeallocHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+RSDeallocHandler.m"; path = "../RSDeallocHandler/NSObject+RSDeallocHandler.m"; sourceTree = "<group>"; };
+		1ACF0F2E17DB39A90061AC98 /* RSSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSwizzle.h; sourceTree = "<group>"; };
+		1ACF0F2F17DB39A90061AC98 /* RSSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSwizzle.m; sourceTree = "<group>"; };
 		1AF93CF717D39EB000245015 /* RSTestsLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSTestsLog.m; path = Tests/RSTestsLog.m; sourceTree = SOURCE_ROOT; };
 		1AF93CF817D39EB000245015 /* RSTestsLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSTestsLog.h; path = Tests/RSTestsLog.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -73,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				1A15FBCB179812D100A78928 /* RSDeallocHandler */,
+				1ACF0F2D17DB39A90061AC98 /* RSSwizzle */,
 				1A15FB9917980D0C00A78928 /* Tests */,
 				1A15FBC117980EBD00A78928 /* Supporting Files */,
 				1A15FB9217980D0C00A78928 /* Frameworks */,
@@ -161,6 +166,16 @@
 				1A15FBCD179812E600A78928 /* NSObject+RSDeallocHandler.m */,
 			);
 			name = RSDeallocHandler;
+			sourceTree = "<group>";
+		};
+		1ACF0F2D17DB39A90061AC98 /* RSSwizzle */ = {
+			isa = PBXGroup;
+			children = (
+				1ACF0F2E17DB39A90061AC98 /* RSSwizzle.h */,
+				1ACF0F2F17DB39A90061AC98 /* RSSwizzle.m */,
+			);
+			name = RSSwizzle;
+			path = ../Support/RSSwizzle/RSSwizzle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +299,7 @@
 				1A15FBD0179813DE00A78928 /* NSObject+RSDeallocHandler.m in Sources */,
 				1A15FBD3179813E800A78928 /* RSDeallocHandlerTests.m in Sources */,
 				1AF93CF917D39EB000245015 /* RSTestsLog.m in Sources */,
+				1ACF0F3017DB39A90061AC98 /* RSSwizzle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +310,7 @@
 				1A15FBD1179813DF00A78928 /* NSObject+RSDeallocHandler.m in Sources */,
 				1A15FBD2179813E700A78928 /* RSDeallocHandlerTests.m in Sources */,
 				1AF93CFA17D39EB000245015 /* RSTestsLog.m in Sources */,
+				1ACF0F3117DB39A90061AC98 /* RSSwizzle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,3 @@
+[submodule "Support/RSSwizzle"]
+	path = Support/RSSwizzle
+	url = https://github.com/rabovik/RSSwizzle.git
