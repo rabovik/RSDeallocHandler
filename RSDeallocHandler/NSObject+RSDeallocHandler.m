@@ -7,10 +7,13 @@
 
 #import "NSObject+RSDeallocHandler.h"
 #import <objc/runtime.h>
+#import "RSSwizzle.h"
 
 #ifdef RS_DEALLOC_HANDLER_TESTS_TARGET
 #import "NSObject+RSDeallocHandler_Tests.h"
 #endif
+
+static void newDealloc(__unsafe_unretained id self, dispatch_block_t callOriginalDealloc);
 
 #pragma mark - Helpers -
 
@@ -104,26 +107,69 @@
 
 @end
 
-@interface __RSDeallocHandlers : __RSBlockWrappersArray
-@end
-@implementation __RSDeallocHandlers
--(void)dealloc{
-    [self runAllBlocks];
+#pragma mark - Dealloc Swizzling -
+static NSMutableSet *swizzledClasses(){
+    static NSMutableSet *swizzledClasses = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        swizzledClasses = [NSMutableSet set];
+    });
+    return swizzledClasses;
 }
-@end
+
+static void swizzleDeallocIfNeeded(Class classToSwizzle){
+    @synchronized(swizzledClasses()){
+        // Check if the class or one of the superclasses is already swizzled.
+        for (Class currentClass = classToSwizzle;
+             nil != currentClass;
+             currentClass = class_getSuperclass(currentClass))
+        {
+            if ([swizzledClasses() containsObject:currentClass]) {
+                return;
+            }
+        }
+        
+        SEL deallocSelector = NSSelectorFromString(@"dealloc");
+        [RSSwizzle
+         swizzleInstanceMethod:deallocSelector
+         inClass:classToSwizzle
+         newImpFactory:^id(RSSWizzleImpProvider originalIMPProvider) {
+             // new dealloc implementation
+             return ^void(__unsafe_unretained id self){
+                 newDealloc(self, ^{
+                     // dynamically calling original implementation
+                     // or an implementation found in superclasses
+                     void (*originalIMP)(__unsafe_unretained id, SEL);
+                     originalIMP = (__typeof(originalIMP))originalIMPProvider();
+                     originalIMP(self,deallocSelector);
+                 });
+             };
+         }];
+        
+        [swizzledClasses() addObject:classToSwizzle];
+    }
+}
 
 #pragma mark - RSDeallocHandler -
 
-@implementation NSObject (RSDeallocHandler)
-
 static int associatedKey;
 
+static void newDealloc(__unsafe_unretained id self, dispatch_block_t callOriginalDealloc){
+    __RSBlockWrappersArray *handlers = objc_getAssociatedObject(self, &associatedKey);
+    [handlers runAllBlocks];
+    callOriginalDealloc();
+}
+
+@implementation NSObject (RSDeallocHandler)
+
 -(NSString *)rs_addDeallocHandler:(dispatch_block_t)handler owner:(id)owner{
+    swizzleDeallocIfNeeded([self class]);
+    
     @synchronized(self){
-        __RSDeallocHandlers *handlers = objc_getAssociatedObject(self, &associatedKey);
+        __RSBlockWrappersArray *handlers = objc_getAssociatedObject(self, &associatedKey);
         
         if(nil == handlers){
-            handlers = [__RSDeallocHandlers new];
+            handlers = [__RSBlockWrappersArray new];
             objc_setAssociatedObject(self,
                                      &associatedKey,
                                      handlers,
@@ -156,7 +202,7 @@ static int associatedKey;
 
 -(void)rs_removeDeallocHandler:(NSString *)uid{
     @synchronized(self){
-        __RSDeallocHandlers *handlers = objc_getAssociatedObject(self, &associatedKey);
+        __RSBlockWrappersArray *handlers = objc_getAssociatedObject(self, &associatedKey);
         [handlers removeWrapper:uid];
     }
 }
@@ -167,7 +213,7 @@ static int associatedKey;
 @implementation NSObject (RSDeallocHandler_Tests)
 
 -(NSUInteger)rs_deallocHandlersCount{
-    __RSDeallocHandlers *handlers = objc_getAssociatedObject(self, &associatedKey);
+    __RSBlockWrappersArray *handlers = objc_getAssociatedObject(self, &associatedKey);
     return [handlers count];
 }
 
