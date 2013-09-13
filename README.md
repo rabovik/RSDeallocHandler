@@ -37,6 +37,18 @@ Add `RSDeallocHandler` to your _Podfile_.
 * iOS 5.0+
 * Mac OS X 10.7+
 * ARC
+* [RSSwizzle][RSSwizzle]
+
+## Author
+Yan Rabovik ([@rabovik][twitter] on twitter)
 
 ## License
 MIT License.
+
+## Changelog
+* 1.1.0 Uses `-dealloc` swizzling via [RSSwizzle][RSSwizzle].
+* 1.0.0 Uses [Associated Objects][AO].
+
+[twitter]: https://twitter.com/rabovik
+[RSSwizzle]: https://github.com/rabovik/RSSwizzle
+[AO]: https://developer.apple.com/library/ios/DOCUMENTATION/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html#//apple_ref/doc/uid/TP40001418-CH1g-SW51
