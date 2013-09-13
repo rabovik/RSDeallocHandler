@@ -3,14 +3,21 @@
 #import "NSObject+RSDeallocHandler.h"
 #import "NSObject+RSDeallocHandler_Tests.h"
 
+@interface NSObjectSubClass : NSObject @end
+@implementation NSObjectSubClass @end
+
 @interface RSDeallocHandlerTests : SenTestCase @end
 
 @implementation RSDeallocHandlerTests
+
+#pragma mark - Setup
 
 -(void)setUp{
     [super setUp];
     [RSTestsLog clear];
 }
+
+#pragma mark - Dealloc Handler
 
 -(void)testSingleDeallocHandler{
     @autoreleasepool {
@@ -97,6 +104,48 @@
         STAssertTrue(0 == [target rs_deallocHandlersCount], @"");
     }
     ASSERT_LOG_IS(@"");
+}
+
+#pragma mark - KVO Auto Unregistering
+/*
+ We run `p RSDHTestsIncrementKVOLeakCounter()` on `NSKVODeallocateBreak` exception
+ to make automatic tests of successfull KVO unregistering.
+ */
+static NSUInteger KVOLeakCounter = 0;
+void RSDHTestsIncrementKVOLeakCounter(){
+    ++KVOLeakCounter;
+}
+
+-(void)makeKVOLeak{
+    id __attribute__((objc_precise_lifetime)) observer = [NSObject new];
+    @autoreleasepool {
+        id x = [NSObjectSubClass new];
+        [x addObserver:observer forKeyPath:@"test" options:0 context:NULL];
+    }
+}
+
+-(void)testKVOLeak{
+    KVOLeakCounter = 0;
+    [self makeKVOLeak];
+    STAssertTrue(1 == KVOLeakCounter, @"Tests must be run with NSKVODeallocateBreak breakpoint.");
+}
+
+-(void)automaticUnregisterKVOOnDealloc{
+    id __attribute__((objc_precise_lifetime)) observer = [NSObject new];
+    @autoreleasepool {
+        id x = [NSObjectSubClass new];
+        [x addObserver:observer forKeyPath:@"test" options:0 context:NULL];
+        __unsafe_unretained id unsafeX = x;
+        [x rs_addDeallocHandler:^{
+            [unsafeX removeObserver:observer forKeyPath:@"test"];
+        } owner:nil];
+    }
+}
+
+-(void)testNoKVOLeak{
+    KVOLeakCounter = 0;
+    [self automaticUnregisterKVOOnDealloc];
+    STAssertTrue(0 == KVOLeakCounter, @"Automatic KVO unregistering does not work.");
 }
 
 @end
