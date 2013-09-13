@@ -131,6 +131,30 @@
     ASSERT_LOG_IS(@"B");
 }
 
+-(void)testTollFreeBridgedClasses{
+    // We can not swizzle toll-free bridged classes in iOS 5
+    @autoreleasepool {
+        NSMutableDictionary *dict =
+            [NSMutableDictionary dictionaryWithObject:@"testValue" forKey:@"testKey"];        
+        [dict rs_addDeallocHandler:^{
+            RSTestsLog(@"M");
+        } owner:nil];
+    }
+    @autoreleasepool {
+        NSMutableArray *array = [NSMutableArray arrayWithObject:@"A"];
+        [array rs_addDeallocHandler:^{
+            RSTestsLog(@"A");
+        } owner:nil];
+    }
+    @autoreleasepool {
+        NSMutableString *str = [NSMutableString stringWithFormat:@"S"];
+        [str rs_addDeallocHandler:^{
+            RSTestsLog(@"S");
+        } owner:nil];
+    }
+    ASSERT_LOG_IS(@"MAS");
+}
+
 #pragma mark - KVO Auto Unregistering
 /*
  We run `p RSDHTestsIncrementKVOLeakCounter()` on `NSKVODeallocateBreak` exception

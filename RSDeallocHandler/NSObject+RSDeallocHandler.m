@@ -59,6 +59,7 @@ static void newDealloc(__unsafe_unretained id self, dispatch_block_t callOrigina
 -(__RSBlockWrapper *)addWrapperWithBlock:(dispatch_block_t)block;
 -(void)removeWrapper:(NSString *)uid;
 -(void)runAllBlocks;
+-(void)removeAllBlocks;
 -(NSUInteger)count;
 
 @end
@@ -105,11 +106,29 @@ static void newDealloc(__unsafe_unretained id self, dispatch_block_t callOrigina
     }
 }
 
+-(void)removeAllBlocks{
+    [_wrappers removeAllObjects];
+}
+
+-(void)dealloc{
+    [self runAllBlocks];
+}
+
 @end
 
 #pragma mark - Dealloc Swizzling -
 
+static BOOL isTollFreeBridged(Class class){
+    NSString *className = NSStringFromClass(class);
+    return [className hasPrefix:@"NSCF"] || [className hasPrefix:@"__NSCF"];
+}
+
 static void swizzleDeallocIfNeeded(Class classToSwizzle){
+    if (isTollFreeBridged(classToSwizzle)) {
+        // We can not swizzle NSMutableDictionary, NSMutableString
+        // and other tool free bridged classes in iOS 5.
+        return;
+    }
     static const void *key = &key;
     SEL deallocSelector = NSSelectorFromString(@"dealloc");
     [RSSwizzle
@@ -143,6 +162,7 @@ static void newDealloc(__unsafe_unretained id self, dispatch_block_t callOrigina
                              nil,
                              OBJC_ASSOCIATION_RETAIN);
     [handlers runAllBlocks];
+    [handlers removeAllBlocks];
     callOriginalDealloc();
 }
 
