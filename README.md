@@ -46,6 +46,7 @@ Yan Rabovik ([@rabovik][twitter] on twitter)
 MIT License.
 
 ## Changelog
+* 1.1.1 Uses [Associated Objects][AO] for Toll-Free Bridged classes on iOS 5 because `-dealloc` swizzling can not be used for them.
 * 1.1.0 Uses `-dealloc` swizzling via [RSSwizzle][RSSwizzle].
 * 1.0.0 Uses [Associated Objects][AO].
 
