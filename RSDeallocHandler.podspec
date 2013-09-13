@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RSDeallocHandler"
-  s.version      = "1.1.0"
+  s.version      = "1.1.1"
   s.summary      = "NSObject category for adding and removing dealloc handler blocks."
   s.homepage     = "https://github.com/rabovik/RSDeallocHandler"
   s.license      = 'MIT'
