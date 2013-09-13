@@ -108,46 +108,28 @@ static void newDealloc(__unsafe_unretained id self, dispatch_block_t callOrigina
 @end
 
 #pragma mark - Dealloc Swizzling -
-static NSMutableSet *swizzledClasses(){
-    static NSMutableSet *swizzledClasses = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        swizzledClasses = [NSMutableSet set];
-    });
-    return swizzledClasses;
-}
 
 static void swizzleDeallocIfNeeded(Class classToSwizzle){
-    @synchronized(swizzledClasses()){
-        // Check if the class or one of the superclasses is already swizzled.
-        for (Class currentClass = classToSwizzle;
-             nil != currentClass;
-             currentClass = class_getSuperclass(currentClass))
-        {
-            if ([swizzledClasses() containsObject:currentClass]) {
-                return;
-            }
-        }
-        
-        SEL deallocSelector = NSSelectorFromString(@"dealloc");
-        [RSSwizzle
-         swizzleInstanceMethod:deallocSelector
-         inClass:classToSwizzle
-         newImpFactory:^id(RSSWizzleImpProvider originalIMPProvider) {
-             // new dealloc implementation
-             return ^void(__unsafe_unretained id self){
-                 newDealloc(self, ^{
-                     // dynamically calling original implementation
-                     // or an implementation found in superclasses
-                     void (*originalIMP)(__unsafe_unretained id, SEL);
-                     originalIMP = (__typeof(originalIMP))originalIMPProvider();
-                     originalIMP(self,deallocSelector);
-                 });
-             };
-         }];
-        
-        [swizzledClasses() addObject:classToSwizzle];
-    }
+    static const void *key = &key;
+    SEL deallocSelector = NSSelectorFromString(@"dealloc");
+    [RSSwizzle
+     swizzleInstanceMethod:deallocSelector
+     inClass:classToSwizzle
+     newImpFactory:^id(RSSwizzleInfo *swizzleInfo) {
+         // new dealloc implementation
+         return ^void(__unsafe_unretained id self){
+             newDealloc(self, ^{
+                 // dynamically calling original implementation
+                 // or an implementation found in superclasses
+                 void (*originalIMP)(__unsafe_unretained id, SEL);
+                 originalIMP =
+                     (__typeof(originalIMP))[swizzleInfo getOriginalImplementation];
+                 originalIMP(self,deallocSelector);
+             });
+         };
+     }
+     mode:RSSwizzleModeOncePerClassAndSuperclasses
+     key:key];
 }
 
 #pragma mark - RSDeallocHandler -
