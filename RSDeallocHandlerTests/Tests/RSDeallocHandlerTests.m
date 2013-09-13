@@ -3,14 +3,28 @@
 #import "NSObject+RSDeallocHandler.h"
 #import "NSObject+RSDeallocHandler_Tests.h"
 
-@interface NSObjectSubClass : NSObject @end
-@implementation NSObjectSubClass @end
+@interface A : NSObject @end
+@implementation A @end
+
+@interface B : A @end
+@implementation B @end
+
+@interface C : B @end
+@implementation C @end
 
 @interface RSDeallocHandlerTests : SenTestCase @end
 
 @implementation RSDeallocHandlerTests
 
 #pragma mark - Setup
+
++(void)setUp{
+    [super setUp];
+    id b = [B new];
+    [b rs_addDeallocHandler:^{} owner:nil];
+    id a = [A new];
+    [a rs_addDeallocHandler:^{} owner:nil];
+}
 
 -(void)setUp{
     [super setUp];
@@ -106,6 +120,17 @@
     ASSERT_LOG_IS(@"");
 }
 
+-(void)testDeallocHandlerIsCalledOnceIfFirstInheritedClassSwizzledAndThenSuperclass{
+    @autoreleasepool {
+        id obj = [B new];
+        [obj rs_addDeallocHandler:^{
+            RSTestsLog(@"B");
+        } owner:nil];
+        obj = nil;
+    }
+    ASSERT_LOG_IS(@"B");
+}
+
 #pragma mark - KVO Auto Unregistering
 /*
  We run `p RSDHTestsIncrementKVOLeakCounter()` on `NSKVODeallocateBreak` exception
@@ -119,7 +144,7 @@ void RSDHTestsIncrementKVOLeakCounter(){
 -(void)makeKVOLeak{
     id __attribute__((objc_precise_lifetime)) observer = [NSObject new];
     @autoreleasepool {
-        id x = [NSObjectSubClass new];
+        id x = [C new];
         [x addObserver:observer forKeyPath:@"test" options:0 context:NULL];
     }
 }
@@ -133,7 +158,7 @@ void RSDHTestsIncrementKVOLeakCounter(){
 -(void)automaticUnregisterKVOOnDealloc{
     id __attribute__((objc_precise_lifetime)) observer = [NSObject new];
     @autoreleasepool {
-        id x = [NSObjectSubClass new];
+        id x = [C new];
         [x addObserver:observer forKeyPath:@"test" options:0 context:NULL];
         __unsafe_unretained id unsafeX = x;
         [x rs_addDeallocHandler:^{

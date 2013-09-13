@@ -134,10 +134,14 @@ static void swizzleDeallocIfNeeded(Class classToSwizzle){
 
 #pragma mark - RSDeallocHandler -
 
-static int associatedKey;
+static const void *associatedKey = &associatedKey;
 
 static void newDealloc(__unsafe_unretained id self, dispatch_block_t callOriginalDealloc){
     __RSBlockWrappersArray *handlers = objc_getAssociatedObject(self, &associatedKey);
+    objc_setAssociatedObject(self,
+                             &associatedKey,
+                             nil,
+                             OBJC_ASSOCIATION_RETAIN);
     [handlers runAllBlocks];
     callOriginalDealloc();
 }
